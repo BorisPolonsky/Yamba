@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 /**
  * Created by Administrator on 2017/4/1.
@@ -12,6 +13,7 @@ import android.preference.PreferenceManager;
 
 public class YambaApplication extends Application implements SharedPreferences.OnSharedPreferenceChangeListener{
     SharedPreferences pref;
+    private static final String TAG= YambaApplication.class.getSimpleName();
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,12 +21,13 @@ public class YambaApplication extends Application implements SharedPreferences.O
         this.pref.registerOnSharedPreferenceChangeListener(this);
         this.pref.getString("username","");
         this.pref.getString("password","");
+        Log.i(TAG,"onCreate");
     }
     @Override
     public void onTerminate() {
         super.onTerminate();
+        Log.i(TAG,"onTerminate");
     }
-
     @Override
     public synchronized void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 

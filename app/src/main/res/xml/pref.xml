@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="UserSetting">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="Login Options">
         <EditTextPreference android:title="@string/titleUsername" android:summary="@string/summaryUsername"
             android:key="username">
         </EditTextPreference>

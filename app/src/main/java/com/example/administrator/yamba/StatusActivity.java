@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,8 +28,8 @@ public class StatusActivity extends Activity
     class MicroBlogMonitor implements TextWatcher
     {    public void beforeTextChanged(CharSequence s, int start,
                                        int count, int after)
-    {
-    }
+        {
+        }
         public void onTextChanged(CharSequence s, int start, int before, int count)
         {
         }
@@ -44,6 +43,7 @@ public class StatusActivity extends Activity
                 characterCount.setTextColor(Color.GREEN);
         }
     }
+    private static final String TAG=StatusActivity.class.getSimpleName();
     private EditText microBlog;
     private Button shareButton;
     private Button clearButton;
@@ -51,6 +51,7 @@ public class StatusActivity extends Activity
     private TextView characterCount;
     private MicroBlogMonitor microBlogMonitor=new MicroBlogMonitor();
     SharedPreferences pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +83,7 @@ public class StatusActivity extends Activity
         menuButton.setOnClickListener(new ButtonClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StatusActivity.this,PreferenceActivity.class));
+                startActivity(new Intent(StatusActivity.this,PrefActivity.class));
             }
         });
         pref= PreferenceManager.getDefaultSharedPreferences(this);
@@ -92,7 +93,7 @@ public class StatusActivity extends Activity
             }
         });
     }
-    class PostMicroBlog extends AsyncTask<String,String,String>
+    class MicroBlogPusher extends AsyncTask<String,String,String>
     {
         @Override
         protected String doInBackground(String... param)
@@ -108,14 +109,14 @@ public class StatusActivity extends Activity
         protected void onPostExecute(String result) {
         }
     }
-/*    @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=getMenuInflater();
         menuInflater.inflate(R.menu.menu,menu);
         return true;
-    }*/
+    }
 
-/*    @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId())
         {
@@ -124,5 +125,5 @@ public class StatusActivity extends Activity
                 break;
         }
         return true;
-    }*/
+    }
 }

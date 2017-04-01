@@ -11,9 +11,10 @@ import android.widget.EditText;
 
 public class PrefActivity extends PreferenceActivity {
     EditText microBlog;
+    private static final String TAG=PrefActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //addPreferencesFromResource(R.xml.pref);
+        addPreferencesFromResource(R.xml.pref);
     }
 }

@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">Yambda</string>
+    <string name="app_name">Yamba</string>
     <string name="titleStatus">Main Page</string>
     <string name="hintText">What\'s new with you?</string>
     <string name="buttonTextShare">Share</string>
     <string name="buttonTextClear">Cancel</string>
     <string name="titlePrefActivity">titlePrefActivity</string>
-    <string name="titleUsername">titleUsername</string>
-    <string name="titlePassword">titlePassword</string>
-    <string name="summaryUsername">summaryUsername</string>
-    <string name="summaryPassword">summaryPassword</string>
-    <string name="titlePref">titlePref</string>
+    <string name="titleUsername">Username</string>
+    <string name="titlePassword">Password</string>
+    <string name="summaryUsername">Type your username here.</string>
+    <string name="summaryPassword">Enter your password here.</string>
+    <string name="titlePref">Setting</string>
     <string name="buttonMenu">Menu</string>
 </resources>
