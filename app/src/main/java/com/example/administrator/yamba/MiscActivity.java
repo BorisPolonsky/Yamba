@@ -14,9 +14,6 @@ import android.widget.Button;
 
 public class MiscActivity extends Activity
 {
-    abstract class ButtonClickListener implements View.OnClickListener
-    {
-    }
     private Button buttonStartService;
     private Button buttonStopService;
     private static final String TAG=MiscActivity.class.getSimpleName();
@@ -27,13 +24,13 @@ public class MiscActivity extends Activity
         this.setContentView(R.layout.misc);
         this.buttonStartService=(Button)findViewById(R.id.buttonStartService);
         this.buttonStopService =(Button)findViewById(R.id.buttonStopService);
-        this.buttonStartService.setOnClickListener(new ButtonClickListener() {
+        this.buttonStartService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startService(new Intent(MiscActivity.this,UpdaterService.class));
             }
         });
-        this.buttonStopService.setOnClickListener(new ButtonClickListener() {
+        this.buttonStopService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stopService(new Intent(MiscActivity.this,UpdaterService.class));

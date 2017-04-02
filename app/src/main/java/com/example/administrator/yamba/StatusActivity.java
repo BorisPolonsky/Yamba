@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,10 +20,6 @@ import android.widget.TextView;
 
 public class StatusActivity extends Activity
 {
-    abstract class ButtonClickListener implements View.OnClickListener
-    {
-    }
-    abstract class SharedPreferenceListener implements SharedPreferences.OnSharedPreferenceChangeListener {}
     class MicroBlogMonitor implements TextWatcher
     {    public void beforeTextChanged(CharSequence s, int start,
                                        int count, int after)
@@ -63,31 +58,33 @@ public class StatusActivity extends Activity
         menuButton=(Button)findViewById(R.id.buttonMenu);
         characterCount=(TextView)findViewById(R.id.textViewTextCount);
         characterCount.setTextColor(Color.GREEN);
-        shareButton.setOnClickListener(new ButtonClickListener()
+        shareButton.setOnClickListener(new View.OnClickListener()
         {
+            @Override
             public void onClick(View v)
             {
                 char[] newText = "Not implemented yet. ".toCharArray();
                 microBlog.setText(newText, 0, newText.length);
-                Log.d(TAG, "NotImplemented");
+                Log.i(TAG, "NotImplemented");
             }
         });
-        clearButton.setOnClickListener(new ButtonClickListener()
+        clearButton.setOnClickListener(new View.OnClickListener()
         {
+            @Override
             public void onClick(View v)
             {
                 char[] newText="".toCharArray();
                 microBlog.setText(newText,0,newText.length);
             }
         });
-        menuButton.setOnClickListener(new ButtonClickListener() {
+        menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StatusActivity.this,MiscActivity.class));
             }
         });
         pref= PreferenceManager.getDefaultSharedPreferences(this);
-        pref.registerOnSharedPreferenceChangeListener(new SharedPreferenceListener() {
+        pref.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             }
@@ -110,22 +107,4 @@ public class StatusActivity extends Activity
         protected void onPostExecute(String result) {
         }
     }
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.menu,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId())
-        {
-            case R.id.itemPref:
-                startActivity(new Intent(this, PreferenceActivity.class));
-                break;
-        }
-        return true;
-    }*/
 }
