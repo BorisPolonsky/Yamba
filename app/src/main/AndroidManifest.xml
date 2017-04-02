@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.administrator.yamba">
-
     <application
         android:name=".YambaApplication"
         android:allowBackup="true"
@@ -15,8 +14,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PrefActivity" android:label="@string/titlePrefActivity">
-        </activity>
+        <activity android:name=".PrefActivity" android:label="@string/titlePrefActivity"/>
+        <activity android:name=".MiscActivity" android:label="@string/titleMiscfActivity"/>
+        <service android:name=".UpdaterService"></service>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
