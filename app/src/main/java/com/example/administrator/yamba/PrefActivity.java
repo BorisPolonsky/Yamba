@@ -16,7 +16,7 @@ public class PrefActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"onCreate");
+        Log.i(TAG,"onCreate");
         addPreferencesFromResource(R.xml.pref);
     }
 }

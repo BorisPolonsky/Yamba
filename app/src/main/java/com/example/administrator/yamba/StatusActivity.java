@@ -69,7 +69,7 @@ public class StatusActivity extends Activity
             {
                 char[] newText = "Not implemented yet. ".toCharArray();
                 microBlog.setText(newText, 0, newText.length);
-                Log.d("Error", "NotImplemented");
+                Log.d(TAG, "NotImplemented");
             }
         });
         clearButton.setOnClickListener(new ButtonClickListener()
@@ -83,7 +83,7 @@ public class StatusActivity extends Activity
         menuButton.setOnClickListener(new ButtonClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StatusActivity.this,PrefActivity.class));
+                startActivity(new Intent(StatusActivity.this,MiscActivity.class));
             }
         });
         pref= PreferenceManager.getDefaultSharedPreferences(this);
@@ -92,6 +92,7 @@ public class StatusActivity extends Activity
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             }
         });
+        Log.i(TAG,"onCreate");
     }
     class MicroBlogPusher extends AsyncTask<String,String,String>
     {
@@ -109,6 +110,7 @@ public class StatusActivity extends Activity
         protected void onPostExecute(String result) {
         }
     }
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=getMenuInflater();
@@ -125,5 +127,5 @@ public class StatusActivity extends Activity
                 break;
         }
         return true;
-    }
+    }*/
 }

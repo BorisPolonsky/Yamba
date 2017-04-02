@@ -17,20 +17,20 @@ public class UpdaterService extends Service
     @Override
     public IBinder onBind(Intent intent)
     {
-        Log.d(TAG,"onBind");
+        Log.i(TAG,"onBind");
         return null;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG,"onCreate");
+        Log.i(TAG,"onCreate");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        Log.d(TAG,"onStartCommand");
+        Log.i(TAG,"onStartCommand");
         return START_STICKY;
     }
 
