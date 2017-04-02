@@ -37,7 +37,7 @@ public class UpdaterService extends Service
         }
     }
     private Updater updater;
-    public boolean runFlag=false;//Useless, maybe useful later.
+    private boolean runFlag=false;//Useless, maybe useful later.
     @Nullable
     @Override
     public IBinder onBind(Intent intent)
