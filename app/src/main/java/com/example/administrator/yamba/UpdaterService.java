@@ -13,6 +13,31 @@ import android.util.Log;
 public class UpdaterService extends Service
 {
     private static final String TAG=UpdaterService.class.getSimpleName();
+    private class Updater extends Thread
+    {
+        private final String TAG=Updater.class.getSimpleName();
+        private final int INTERVAL=10000;
+        private UpdaterService updaterService=UpdaterService.this;
+        @Override
+        public void run()
+        {
+            while(true)
+            {
+                try
+                {
+                    Thread.sleep(INTERVAL);
+                    Log.i(TAG,"Updated!");
+                }
+                catch(InterruptedException e)
+                {
+                    Log.i(TAG,"Interrupted");
+                    break;
+                }
+            }
+        }
+    }
+    private Updater updater;
+    public boolean runFlag=false;//Useless, maybe useful later.
     @Nullable
     @Override
     public IBinder onBind(Intent intent)
@@ -24,6 +49,8 @@ public class UpdaterService extends Service
     @Override
     public void onCreate() {
         super.onCreate();
+        this.updater=new Updater();
+        this.runFlag=false;
         Log.i(TAG,"onCreate");
     }
 
@@ -31,12 +58,17 @@ public class UpdaterService extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         Log.i(TAG,"onStartCommand");
+        this.runFlag=true;
+        this.updater.start();
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        this.updater.interrupt();
+        this.updater=null;
+        this.runFlag=false;
         Log.i(TAG,"onDestroy");
     }
 }
