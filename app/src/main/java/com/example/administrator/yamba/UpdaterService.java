@@ -37,6 +37,6 @@ public class UpdaterService extends Service
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG,"onDestroy");
+        Log.i(TAG,"onDestroy");
     }
 }
