@@ -63,9 +63,8 @@ public class StatusActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                char[] newText = "Not implemented yet. ".toCharArray();
-                microBlog.setText(newText, 0, newText.length);
-                Log.i(TAG, "NotImplemented");
+                MicroBlogPusher pusher=new MicroBlogPusher();
+                pusher.execute(microBlog.getText().toString());
             }
         });
         clearButton.setOnClickListener(new View.OnClickListener()
@@ -93,18 +92,24 @@ public class StatusActivity extends Activity
     }
     class MicroBlogPusher extends AsyncTask<String,String,String>
     {
+        private final String TAG=MicroBlogPusher.class.getSimpleName();
         @Override
         protected String doInBackground(String... param)
         {
+            for(String str:param)
+                Log.i(TAG,str);
             return("Done");
         }
         @Override
         protected void onProgressUpdate(String... progress)
         {
+            for(String str:progress)
+                Log.i(TAG,str);
             super.onProgressUpdate(progress);
         }
         @Override
         protected void onPostExecute(String result) {
+            Log.i(TAG,"onPostexecute");
         }
     }
 }
