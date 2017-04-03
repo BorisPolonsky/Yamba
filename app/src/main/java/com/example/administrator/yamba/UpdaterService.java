@@ -26,24 +26,7 @@ public class UpdaterService extends Service
         {
             while(true)
             {
-                UpdaterService.this.db=UpdaterService.this.dbHelper.getWritableDatabase();
-                ContentValues values=new ContentValues();
-                values.clear();
-                //values.put(dbHelper.C_ID,"Status_ID");//Do not specify the primary key
-                values.put(dbHelper.C_CREATED_AT,"2016");
-                values.put(dbHelper.C_TEXT,"Hello World.");
-                values.put(dbHelper.C_USER,"NewUser");
-                try {
-                    UpdaterService.this.db.insertOrThrow(DbHelper.TABLE, null, values);
-                }
-                catch(SQLException e)
-                {
-                    Log.i(TAG,e.getMessage());
-                    Log.i(TAG,"Looks like a collision occurred in primary key.");
-                    //Do nothing for now.
-                }
                 Log.i(TAG,"Updated!");
-                db.close();
                 try
                 {
                     Thread.sleep(INTERVAL);
@@ -58,7 +41,6 @@ public class UpdaterService extends Service
     }
     private Updater updater;
     private boolean runFlag=false;//Useless, maybe useful later.
-    private DbHelper dbHelper;
     private SQLiteDatabase db;
     @Nullable
     @Override
@@ -72,7 +54,6 @@ public class UpdaterService extends Service
     public void onCreate() {
         super.onCreate();
         this.updater=new Updater();
-        this.dbHelper=new DbHelper(this);
         this.runFlag=false;
         Log.i(TAG,"onCreate");
     }

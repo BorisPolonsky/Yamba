@@ -46,7 +46,6 @@ public class StatusActivity extends Activity
     private TextView characterCount;
     private MicroBlogMonitor microBlogMonitor=new MicroBlogMonitor();
     SharedPreferences pref;
-    private DbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,5 +109,10 @@ public class StatusActivity extends Activity
         protected void onPostExecute(String result) {
             Log.i(TAG,"onPostExecute");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
