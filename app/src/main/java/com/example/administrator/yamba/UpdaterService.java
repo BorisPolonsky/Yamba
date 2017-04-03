@@ -38,6 +38,8 @@ public class UpdaterService extends Service
                 }
                 catch(SQLException e)
                 {
+                    Log.i(TAG,e.getMessage());
+                    Log.i(TAG,"Looks like a collision occurred in primary key.");
                     //Do nothing for now.
                 }
                 Log.i(TAG,"Updated!");
