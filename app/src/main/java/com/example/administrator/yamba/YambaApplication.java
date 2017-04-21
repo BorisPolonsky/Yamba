@@ -11,7 +11,8 @@ import android.util.Log;
  */
 
 
-public class YambaApplication extends Application implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class YambaApplication extends Application implements
+        SharedPreferences.OnSharedPreferenceChangeListener{
     SharedPreferences pref;
     private static final String TAG= YambaApplication.class.getSimpleName();
     private static String username="";
@@ -30,7 +31,8 @@ public class YambaApplication extends Application implements SharedPreferences.O
         Log.i(TAG,"onTerminate");
     }
     @Override
-    public synchronized void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
+    public synchronized void
+    onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
     {
         this.username=sharedPreferences.getString("username","");//For later use
     }

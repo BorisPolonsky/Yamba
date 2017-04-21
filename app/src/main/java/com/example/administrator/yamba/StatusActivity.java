@@ -90,7 +90,8 @@ public class StatusActivity extends Activity
             }
         });
         pref= PreferenceManager.getDefaultSharedPreferences(this);
-        pref.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+        pref.registerOnSharedPreferenceChangeListener
+                (new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             }

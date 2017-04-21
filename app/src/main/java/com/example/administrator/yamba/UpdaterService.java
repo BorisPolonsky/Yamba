@@ -1,7 +1,6 @@
 package com.example.administrator.yamba;
 
 import android.app.Service;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
