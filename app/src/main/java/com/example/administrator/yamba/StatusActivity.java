@@ -1,12 +1,16 @@
 package com.example.administrator.yamba;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -46,6 +50,7 @@ public class StatusActivity extends Activity
     private TextView characterCount;
     private MicroBlogMonitor microBlogMonitor=new MicroBlogMonitor();
     SharedPreferences pref;
+    private SQLiteOpenHelper dbHelper=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +69,9 @@ public class StatusActivity extends Activity
             public void onClick(View v)
             {
                 MicroBlogPusher pusher=new MicroBlogPusher();
-                pusher.execute(microBlog.getText().toString());
+                String str=microBlog.getText().toString();
+                if(str.length()>0 && str.length()<=140)
+                    pusher.execute(microBlog.getText().toString());
             }
         });
         clearButton.setOnClickListener(new View.OnClickListener()
@@ -88,6 +95,19 @@ public class StatusActivity extends Activity
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             }
         });
+        dbHelper=new SQLiteOpenHelper(this,"YambaDb.db",null,1) {
+            @Override
+            public void onCreate(SQLiteDatabase db) {
+                db.execSQL("create table timeline ("+ BaseColumns._ID+" int primary key, int, " +
+                        "user text, txt text)");
+            }
+
+            @Override
+            public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+                db.execSQL("drop table timeline");
+                this.onCreate(db);
+            }
+        };
         Log.i(TAG,"onCreate");
     }
     class MicroBlogPusher extends AsyncTask<String,String,String>
@@ -96,13 +116,30 @@ public class StatusActivity extends Activity
         @Override
         protected String doInBackground(String... param)
         {
+            SQLiteDatabase db=dbHelper.getReadableDatabase();
+            try
+            {
+                db.execSQL("create table if not exists timeline ("+BaseColumns._ID+
+                         " int primary key, created_at int, user text, txt text)");
+                ContentValues values=new ContentValues();
+                values.put("created_at",System.currentTimeMillis());
+                values.put("user","user1");
+                values.put("txt",param[0]);
+                //db.insertOrThrow(this.TABLE,null,values) corresponds to
+                //db.insertWithOnConflict(this.TABLE,null,values,CONFLICT_NONE)
+
+                //References for ON CONFLICT clause in SQLite: http://sqlite.org/lang_conflict.html
+                db.insertWithOnConflict("timeline",null,values,SQLiteDatabase.CONFLICT_IGNORE);
+            }finally
+            {
+                db.close();
+            }
             return("Done");
         }
         @Override
-        protected void onProgressUpdate(String... progress)
-        {
-            for(String str:progress)
-                Log.i(TAG,str);
+        protected void onProgressUpdate(String... progress) {
+            for (String str : progress)
+                Log.i(MicroBlogPusher.class.getSimpleName(), str);
             super.onProgressUpdate(progress);
         }
         @Override

@@ -21,25 +21,19 @@ public class StatusData {
     private final DbHelper dbHelper;
     static final String DB_NAME="YambaDb.db";
     static final int DB_VERSION=1;
-    static final String TABLE="Table1";
+    static final String TABLE="timeline";
     //Need to study the following part.
     static final String C_ID= BaseColumns._ID;//???
     static final String C_CREATED_AT="created_at";
     static final String C_SOURCE="source";
     static final String C_TEXT="txt";
     static final String C_USER="user";
+    private static final String GET_ALL_ORDER_BY = C_CREATED_AT + " DESC";
+    private static final String[] MAX_CREATED_AT_COLUMNS={"MAX(", StatusData.C_CREATED_AT,")"};
+    private static final String[] DB_TEXT_COLUMNS={C_TEXT};
     class DbHelper extends SQLiteOpenHelper
     {
-        static final String DB_NAME="YambaDb.db";
-        static final int DB_VERSION=1;
-        static final String TABLE="Table1";
-        //Need to study the following part.
-        static final String C_ID= BaseColumns._ID;//???
-        static final String C_CREATED_AT="created_at";
-        static final String C_SOURCE="source";
-        static final String C_TEXT="txt";
-        static final String C_USER="user";
-        private final String GET_ALL_ORDER_BY = C_CREATED_AT + " DESC";
+
         private Context context;
         DbHelper(Context context)
         {
@@ -97,5 +91,38 @@ public class StatusData {
         return null;//I'll implement this part later.
         //Need to learn more about the SQLite query statements.
     }
-
+    public String getStatusTextById(long id)
+    {
+        SQLiteDatabase db = this.dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor = db.query(TABLE, DB_TEXT_COLUMNS, C_ID + "=" + id, null, null, null, null);
+            try {
+                return cursor.moveToNext() ? cursor.getString(0) : null;//cursor.getString()?
+            } finally {
+                cursor.close();
+            }
+        }
+        finally{
+            db.close();
+        }
+    }
+    public long getLatestStatusCreatedAtTime()
+    {
+        SQLiteDatabase db=this.dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor=db.query(TABLE,MAX_CREATED_AT_COLUMNS,null,null,null,null,null);
+            //How come it selects one column with an array with length 3?
+            try{
+                return cursor.moveToNext()?cursor.getLong(0):Long.MIN_VALUE;
+            }
+            finally
+            {
+                cursor.close();
+            }
+        }
+        finally
+        {
+            db.close();
+        }
+    }
 }
