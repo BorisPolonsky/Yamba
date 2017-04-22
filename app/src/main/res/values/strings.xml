@@ -11,7 +11,7 @@
     <string name="summaryPassword">Enter your password here.</string>
     <string name="titlePref">Setting</string>
     <string name="buttonMenu">Menu</string>
-    <string name="titleMiscfActivity">titleMisc</string>
+    <string name="titleMiscActivity">titleMisc</string>
     <string name="buttonStartService">Start Service</string>
     <string name="buttonStopService">Stop Service</string>
     <string name="timelineTitle">Timeline</string>

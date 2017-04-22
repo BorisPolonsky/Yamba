@@ -15,7 +15,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PrefActivity" android:label="@string/titlePrefActivity"/>
-        <activity android:name=".MiscActivity" android:label="@string/titleMiscfActivity"/>
+        <activity android:name=".MiscActivity" android:label="@string/titleMiscActivity"/>
         <service android:name=".UpdaterService"></service>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
