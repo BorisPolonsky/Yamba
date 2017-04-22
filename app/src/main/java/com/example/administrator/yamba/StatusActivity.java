@@ -135,6 +135,7 @@ public class StatusActivity extends Activity
             {
                 db.close();
             }
+            Log.i(TAG,"doInBackground");
             return("Done");
         }
         @Override
