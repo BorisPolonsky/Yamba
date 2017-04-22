@@ -5,11 +5,13 @@
     android:orientation="vertical"
     android:background="@drawable/background">
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/timelineTitle"
+        android:background="#B000"
+        android:textColor="#FFF"
         android:textSize="30sp" />
 
     <ScrollView
@@ -20,6 +22,8 @@
             android:id="@+id/textTimeline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#8000" />
+            android:background="#B000"
+            android:textColor="#FFF"
+            android:textSize="30sp"/>
     </ScrollView>
 </LinearLayout>
