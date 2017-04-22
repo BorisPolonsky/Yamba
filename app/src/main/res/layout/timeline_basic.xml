@@ -9,7 +9,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/timelineTitle" />
+        android:text="@string/timelineTitle"
+        android:textSize="30sp" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,7 +19,7 @@
         <TextView
             android:id="@+id/textTimeline"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#8000" />
     </ScrollView>
 </LinearLayout>

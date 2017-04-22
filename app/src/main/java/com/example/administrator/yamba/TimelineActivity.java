@@ -14,12 +14,12 @@ import android.util.Log;
 public class TimelineActivity extends Activity {
     private static final String TAG=TimelineActivity.class.getSimpleName();
     private StatusData statusData;
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.timeline_basic);
-        statusData=new StatusData(this);
-        Log.i(TAG,"onCreate");
+        this.statusData=new StatusData(this);
     }
 
     @Override
