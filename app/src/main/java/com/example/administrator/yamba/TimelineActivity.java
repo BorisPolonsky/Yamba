@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 /**
@@ -15,16 +17,20 @@ import android.widget.TextView;
 
 public class TimelineActivity extends Activity {
     private static final String TAG=TimelineActivity.class.getSimpleName();
-    private StatusData statusData;
+
     private SQLiteDatabase db;
-    private TextView timelineView;
+    private ListView listTimeline;
+    private TimelineAdapter adapter;
+    private StatusData statusData;
+    static final String[] FROM={"created_at","user","txt"};
+    static final int[] TO={R.id.textCreatedAt,R.id.textUser,R.id.textText};
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timeline_basic);
+        this.listTimeline=(ListView)findViewById(R.id.listTimeline);
         this.statusData=new StatusData(this);
         this.db=statusData.getDatabase();
-        this.timelineView=(TextView)findViewById(R.id.textTimeline);
     }
 
     @Override
@@ -33,20 +39,14 @@ public class TimelineActivity extends Activity {
         Cursor cursor=db.query("timeline",null,null,null,null,null,"created_at DESC");
         String user,created_at,txt;
         startManagingCursor(cursor);
-        while(cursor.moveToNext())//Will this miss the first row?
-        {
-            user=cursor.getString(cursor.getColumnIndex("user"));
-            created_at=cursor.getString(cursor.getColumnIndex("created_at"));
-            txt=cursor.getString(cursor.getColumnIndex("txt"));
-            timelineView.append(String.format("%s:\n%s\n",user,txt));
-        }
+        adapter=new TimelineAdapter(this,cursor);
+        listTimeline.setAdapter(adapter);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        db.close();
-        statusData.close();
+        this.statusData.close();
         Log.i(TAG,"onDestroy");
     }
 }

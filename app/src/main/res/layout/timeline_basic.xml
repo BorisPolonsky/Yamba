@@ -13,17 +13,10 @@
         android:background="#B000"
         android:textColor="#FFF"
         android:textSize="30sp" />
-
-    <ScrollView
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/textTimeline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#B000"
-            android:textColor="#FFF"
-            android:textSize="30sp"/>
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:id="@+id/listTimeline"
+        android:background="#B000">
+    </ListView>
 </LinearLayout>
