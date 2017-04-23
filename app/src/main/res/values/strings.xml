@@ -14,5 +14,5 @@
     <string name="titleMiscActivity">titleMisc</string>
     <string name="buttonStartService">Start Service</string>
     <string name="buttonStopService">Stop Service</string>
-    <string name="timelineTitle">Timeline</string>
+    <string name="titleTimeline">Timeline</string>
 </resources>

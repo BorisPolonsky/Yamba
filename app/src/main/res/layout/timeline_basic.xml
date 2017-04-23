@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/timelineTitle"
+        android:text="@string/titleTimeline"
         android:background="#B000"
         android:textColor="#FFF"
         android:textSize="30sp" />
