@@ -1,6 +1,7 @@
 package com.example.administrator.yamba;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Polonsky on 4/21/2017.
@@ -33,6 +35,10 @@ public class TimelineActivity extends Activity {
         this.listTimeline=(ListView)findViewById(R.id.listTimeline);
         this.statusData=new StatusData(this);
         this.db=statusData.getDatabase();
+        Log.i(TAG,"onCreate");
+        YambaApplication yamba=(YambaApplication)getApplication();
+        if(yamba.pref.getString("username",null)==null)
+            startActivity(new Intent(this,PrefActivity.class));
     }
 
     @Override
