@@ -70,8 +70,12 @@ public class StatusActivity extends Activity
             {
                 MicroBlogPusher pusher=new MicroBlogPusher();
                 String str=microBlog.getText().toString();
-                if(str.length()>0 && str.length()<=140)
-                    pusher.execute(microBlog.getText().toString());
+                if(str.length()>0 && str.length()<=140) {
+                    String text=microBlog.getText().toString();
+                    YambaApplication yamba=(YambaApplication)getApplication();
+                    String username=yamba.pref.getString("username", "INVALID");
+                    pusher.execute(username,text);
+                }
             }
         });
         clearButton.setOnClickListener(new View.OnClickListener()
@@ -89,13 +93,14 @@ public class StatusActivity extends Activity
                 startActivity(new Intent(StatusActivity.this,MiscActivity.class));
             }
         });
+        /*
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         pref.registerOnSharedPreferenceChangeListener
                 (new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             }
-        });
+        });*/
         /*dbHelper=new SQLiteOpenHelper(this,"YambaDb.db",null,1) {
             @Override
             public void onCreate(SQLiteDatabase db) {
@@ -126,8 +131,8 @@ public class StatusActivity extends Activity
                         " text, "+StatusData.C_TEXT+" text)");
                 ContentValues values=new ContentValues();
                 values.put("created_at",System.currentTimeMillis());
-                values.put("user","user1");
-                values.put("txt",param[0]);
+                values.put("user",param[0]);
+                values.put("txt",param[1]);
                 //db.insertOrThrow(this.TABLE,null,values) corresponds to
                 //db.insertWithOnConflict(this.TABLE,null,values,CONFLICT_NONE)
 
