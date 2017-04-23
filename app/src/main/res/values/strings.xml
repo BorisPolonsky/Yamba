@@ -16,4 +16,5 @@
     <string name="buttonStopService">Stop Service</string>
     <string name="titleTimeline">Timeline</string>
     <string name="msgSetupPrefs">Please enter your username and password. </string>
+    <string name="buttonPost">+</string>
 </resources>

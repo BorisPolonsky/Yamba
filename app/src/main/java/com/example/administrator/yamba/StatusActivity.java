@@ -46,7 +46,6 @@ public class StatusActivity extends Activity
     private EditText microBlog;
     private Button shareButton;
     private Button clearButton;
-    private Button menuButton;
     private TextView characterCount;
     private MicroBlogMonitor microBlogMonitor=new MicroBlogMonitor();
     SharedPreferences pref;
@@ -60,7 +59,6 @@ public class StatusActivity extends Activity
         microBlog.addTextChangedListener(this.microBlogMonitor);
         shareButton=(Button)findViewById(R.id.buttonShare);
         clearButton=(Button)findViewById(R.id.buttonClear);
-        menuButton=(Button)findViewById(R.id.buttonMenu);
         characterCount=(TextView)findViewById(R.id.textViewTextCount);
         characterCount.setTextColor(Color.GREEN);
         shareButton.setOnClickListener(new View.OnClickListener()
@@ -85,12 +83,6 @@ public class StatusActivity extends Activity
             {
                 char[] newText="".toCharArray();
                 microBlog.setText(newText,0,newText.length);
-            }
-        });
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StatusActivity.this,MiscActivity.class));
             }
         });
         /*

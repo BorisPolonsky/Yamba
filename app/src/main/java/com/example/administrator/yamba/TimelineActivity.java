@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -21,13 +22,14 @@ import android.widget.Toast;
 
 public class TimelineActivity extends Activity {
     private static final String TAG=TimelineActivity.class.getSimpleName();
-
     private SQLiteDatabase db;
     private ListView listTimeline;
     private SimpleCursorAdapter adapter;
     private StatusData statusData;
     static final String[] FROM={"created_at","user","txt"};
     static final int[] TO={R.id.textCreatedAt,R.id.textUser,R.id.textText};
+    private Button postButton;
+    private Button menuButton;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +37,24 @@ public class TimelineActivity extends Activity {
         this.listTimeline=(ListView)findViewById(R.id.listTimeline);
         this.statusData=new StatusData(this);
         this.db=statusData.getDatabase();
-        Log.i(TAG,"onCreate");
+        menuButton=(Button)findViewById(R.id.buttonMenu);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TimelineActivity.this,MiscActivity.class));
+            }
+        });
+        postButton=(Button)findViewById(R.id.buttonPost);
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TimelineActivity.this,StatusActivity.class));
+            }
+        });
         YambaApplication yamba=(YambaApplication)getApplication();
         if(yamba.pref.getString("username",null)==null)
             startActivity(new Intent(this,PrefActivity.class));
+        Log.i(TAG,"onCreate");
     }
 
     @Override
