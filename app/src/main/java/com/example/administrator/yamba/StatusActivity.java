@@ -50,7 +50,7 @@ public class StatusActivity extends Activity
     private TextView characterCount;
     private MicroBlogMonitor microBlogMonitor=new MicroBlogMonitor();
     SharedPreferences pref;
-    private SQLiteOpenHelper dbHelper=null;
+    private StatusData statusData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class StatusActivity extends Activity
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             }
         });
-        dbHelper=new SQLiteOpenHelper(this,"YambaDb.db",null,1) {
+        /*dbHelper=new SQLiteOpenHelper(this,"YambaDb.db",null,1) {
             @Override
             public void onCreate(SQLiteDatabase db) {
                 db.execSQL("create table timeline ("+ BaseColumns._ID+" int primary key, int, " +
@@ -108,7 +108,8 @@ public class StatusActivity extends Activity
                 db.execSQL("drop table timeline");
                 this.onCreate(db);
             }
-        };
+        };*/
+        statusData=new StatusData(this);
         Log.i(TAG,"onCreate");
     }
     class MicroBlogPusher extends AsyncTask<String,String,String>
@@ -117,11 +118,12 @@ public class StatusActivity extends Activity
         @Override
         protected String doInBackground(String... param)
         {
-            SQLiteDatabase db=dbHelper.getReadableDatabase();
+            SQLiteDatabase db=statusData.getDatabase();
             try
             {
-                db.execSQL("create table if not exists timeline ("+BaseColumns._ID+
-                         " int primary key, created_at int, user text, txt text)");
+                db.execSQL("create table if not exists "+StatusData.TABLE+ "("+BaseColumns._ID+
+                         " int primary key, "+StatusData.C_CREATED_AT+" int, "+StatusData.C_USER+
+                        " text, "+StatusData.C_TEXT+" text)");
                 ContentValues values=new ContentValues();
                 values.put("created_at",System.currentTimeMillis());
                 values.put("user","user1");
@@ -153,5 +155,6 @@ public class StatusActivity extends Activity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        statusData.close();
     }
 }
