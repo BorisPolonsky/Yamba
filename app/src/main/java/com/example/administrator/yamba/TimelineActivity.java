@@ -1,6 +1,7 @@
 package com.example.administrator.yamba;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -30,6 +31,7 @@ public class TimelineActivity extends Activity {
     static final int[] TO={R.id.textCreatedAt,R.id.textUser,R.id.textText};
     private Button postButton;
     private Button menuButton;
+    private YambaApplication yamba;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,15 +53,17 @@ public class TimelineActivity extends Activity {
                 startActivity(new Intent(TimelineActivity.this,StatusActivity.class));
             }
         });
-        YambaApplication yamba=(YambaApplication)getApplication();
-        if(yamba.pref.getString("username",null)==null)
-            startActivity(new Intent(this,PrefActivity.class));
+        yamba=(YambaApplication)getApplication();
         Log.i(TAG,"onCreate");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if(yamba.getUsername()==null) {
+            startActivity(new Intent(this, PrefActivity.class));
+            return;
+        }
         Cursor cursor=db.query("timeline",null,null,null,null,null,"created_at DESC");
         String user,created_at,txt;
         startManagingCursor(cursor);
