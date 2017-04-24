@@ -2,7 +2,10 @@ package com.example.administrator.yamba;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -27,6 +30,7 @@ import java.util.Date;
 public class TimelineActivity extends Activity {
     private static final String TAG=TimelineActivity.class.getSimpleName();
     private SQLiteDatabase db;
+    private Cursor cursor;
     private ListView listTimeline;
     private SimpleCursorAdapter adapter;
     private StatusData statusData;
@@ -35,6 +39,15 @@ public class TimelineActivity extends Activity {
     private Button postButton;
     private Button menuButton;
     private YambaApplication yamba;
+    private TimelineReceiver receiver;
+    class TimelineReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TimelineActivity.this.cursor.requery();
+            TimelineActivity.this.adapter.notifyDataSetChanged();
+            Log.i("TimelineReceiver","onReceive");
+        }
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +70,7 @@ public class TimelineActivity extends Activity {
             }
         });
         yamba=(YambaApplication)getApplication();
+        receiver=new TimelineReceiver();
         Log.i(TAG,"onCreate");
     }
 
@@ -68,10 +82,10 @@ public class TimelineActivity extends Activity {
             Toast.makeText(this, R.string.msgSetupPrefs, Toast.LENGTH_LONG).show();
             return;
         }
-        Cursor cursor=db.query("timeline",null,null,null,null,null,"created_at DESC");
+        this.cursor=db.query("timeline",null,null,null,null,null,"created_at DESC");
         startManagingCursor(cursor);
-        adapter=new SimpleCursorAdapter(this,R.layout.row,cursor,FROM,TO);
-        adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder(){
+        this.adapter=new SimpleCursorAdapter(this,R.layout.row,cursor,FROM,TO);
+        this.adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder(){
             @Override
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
                 if (columnIndex==cursor.getColumnIndex(StatusData.C_CREATED_AT))
@@ -94,6 +108,14 @@ public class TimelineActivity extends Activity {
             }
         });
         listTimeline.setAdapter(adapter);
+        registerReceiver(this.receiver,
+                new IntentFilter("com.example.administrator.yamba.NEW_INTENT"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(this.receiver);
     }
 
     @Override
