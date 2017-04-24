@@ -40,6 +40,7 @@ public class TimelineActivity extends Activity {
     private Button menuButton;
     private YambaApplication yamba;
     private TimelineReceiver receiver;
+    static final String SEND_TIMELINE_NOTIFICATIONS="com.example.administrator.yamba.SEND_TIMELINE_NOTIFICATION";
     class TimelineReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -112,7 +113,7 @@ public class TimelineActivity extends Activity {
         });
         listTimeline.setAdapter(adapter);
         registerReceiver(this.receiver,
-                new IntentFilter(UpdaterService.NEW_STATUS_INTENT));
+                new IntentFilter(UpdaterService.NEW_STATUS_INTENT),SEND_TIMELINE_NOTIFICATIONS,null);
     }
 
     @Override

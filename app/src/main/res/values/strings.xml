@@ -19,4 +19,9 @@
     <string name="buttonPost">+</string>
     <string name="titleService">Pull New Messages</string>
     <string name="summaryService">Pull Messages Automatically</string>
+    <string name="receive_timeline_notifications_permission_label">Permission: Receive timeline notifications</string>
+    <string name="receive_timeline_notifications_permission_description">Receive timeline notifications</string>
+    <string name="send_timeline_notifications_permission_label">Permission: Send timeline notifications</string>
+    <string name="send_timeline_notifications_permission_description">Send timeline notifications</string>
+
 </resources>

@@ -17,6 +17,7 @@ public class UpdaterService extends Service
     private static final String TAG=UpdaterService.class.getSimpleName();
     public static final String NEW_STATUS_INTENT="com.example.administrator.yamba.NEW_STATUS";
     public static final String NEW_STATUS_EXTRA_COUNT="NEW_STATUS_EXTRA_COUNT";
+    static final String RECEIVE_TIMELINE_NOTIFICATIONS="com.example.administrator.yamba.RECEIVE_TIMELINE_NOTIFICATION";
     private class Updater extends Thread
     {
         private final String TAG=Updater.class.getSimpleName();
@@ -38,7 +39,7 @@ public class UpdaterService extends Service
                         Log.i(TAG,"New message received.");
                         Intent intent=new Intent(NEW_STATUS_INTENT);
                         intent.putExtra(NEW_STATUS_EXTRA_COUNT,numOfUpdate);
-                        updaterService.sendBroadcast(intent);
+                        updaterService.sendBroadcast(intent,UpdaterService.RECEIVE_TIMELINE_NOTIFICATIONS);
                     }
                     Thread.sleep(INTERVAL);
                 }

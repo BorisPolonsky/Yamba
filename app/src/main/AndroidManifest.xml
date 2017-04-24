@@ -29,7 +29,19 @@
             </intent-filter>
         </receiver>
     </application>
+    <permission android:name="com.example.administrator.yamba.RECEIVE_TIMELINE_NOTIFICATION"
+        android:label="@string/receive_timeline_notifications_permission_label"
+        android:description="@string/receive_timeline_notifications_permission_description"
+        android:permissionGroup="android.permission-group.PERSONAL_INFO"
+        android:protectionLevel="normal" />
+    <permission android:name="com.example.administrator.yamba.SEND_TIMELINE_NOTIFICATION"
+        android:label="@string/send_timeline_notifications_permission_label"
+        android:description="@string/send_timeline_notifications_permission_description"
+        android:permissionGroup="android.permission-group.PERSONAL_INFO"
+        android:protectionLevel="normal"/>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="com.example.administrator.yamba.RECEIVE_TIMELINE_NOTIFICATION"/>
+    <uses-permission android:name="com.example.administrator.yamba.SEND_TIMELINE_NOTIFICATION"/>
 </manifest>
