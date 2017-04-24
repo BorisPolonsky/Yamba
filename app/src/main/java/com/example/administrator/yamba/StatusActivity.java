@@ -71,7 +71,7 @@ public class StatusActivity extends Activity
                 if(str.length()>0 && str.length()<=140) {
                     String text=microBlog.getText().toString();
                     YambaApplication yamba=(YambaApplication)getApplication();
-                    String username=yamba.username;
+                    String username=yamba.getUsername();
                     pusher.execute(username,text);
                 }
             }

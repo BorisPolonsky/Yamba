@@ -18,7 +18,7 @@ public class YambaApplication extends Application implements
         SharedPreferences.OnSharedPreferenceChangeListener{
     SharedPreferences pref;
     private static final String TAG= YambaApplication.class.getSimpleName();
-    String username=null;
+    private String username=null;
     private String password=null;
     @Override
     public void onCreate() {
@@ -38,7 +38,11 @@ public class YambaApplication extends Application implements
     onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
     {
         if(key.equals("username")) {
-            this.username = sharedPreferences.getString("username", null);
+            String username = sharedPreferences.getString("username", null);
+            if(username!=null&&username.equals(""))
+                Toast.makeText(this,"Username must be non-empty. ",Toast.LENGTH_SHORT);
+            else
+                this.username=username;
             return;
         }
         if(key.equals("password"))
@@ -49,5 +53,9 @@ public class YambaApplication extends Application implements
     }
     public String getUsername(){
         return this.username;
+    }
+    public void logOut(){
+        this.username=null;
+        this.password=null;
     }
 }
