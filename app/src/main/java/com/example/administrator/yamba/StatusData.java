@@ -23,7 +23,7 @@ public class StatusData {
     static final int DB_VERSION=1;
     static final String TABLE="timeline";
     //Need to study the following part.
-    static final String C_ID= BaseColumns._ID;//???
+    static final String C_ID= BaseColumns._ID;
     static final String C_CREATED_AT="created_at";
     static final String C_SOURCE="source";
     static final String C_TEXT="txt";
@@ -81,7 +81,7 @@ public class StatusData {
     public Cursor getStatusUpdates()
     {
         SQLiteDatabase db=this.dbHelper.getReadableDatabase();
-        Cursor cursor=db.query(TABLE,null,null,null,null,null,null);//Query all columns
+        Cursor cursor=db.query(TABLE,null,null,null,null,null,null);//Select all columns
         //I'll study the last 5 parameters later.
         return cursor;
     }
