@@ -14,6 +14,7 @@
     <string name="titleMiscActivity">titleMisc</string>
     <string name="buttonStartService">Start Service</string>
     <string name="buttonStopService">Stop Service</string>
+    <string name="buttonLogOut">Log Out</string>
     <string name="titleTimeline">Timeline</string>
     <string name="msgSetupPrefs">Please enter your username and password. </string>
     <string name="buttonPost">+</string>

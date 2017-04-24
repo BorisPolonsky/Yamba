@@ -16,6 +16,7 @@ public class MiscActivity extends Activity
 {
     private Button buttonStartService;
     private Button buttonStopService;
+    private Button buttonLogOut;
     private static final String TAG=MiscActivity.class.getSimpleName();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MiscActivity extends Activity
         this.setContentView(R.layout.misc);
         this.buttonStartService=(Button)findViewById(R.id.buttonStartService);
         this.buttonStopService =(Button)findViewById(R.id.buttonStopService);
+        this.buttonLogOut=(Button)findViewById(R.id.buttonLogOut);
         this.buttonStartService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +36,13 @@ public class MiscActivity extends Activity
             @Override
             public void onClick(View v) {
                 stopService(new Intent(MiscActivity.this,UpdaterService.class));
+            }
+        });
+        this.buttonLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YambaApplication yamba=(YambaApplication) getApplication();
+                yamba.logOut();
             }
         });
     }
