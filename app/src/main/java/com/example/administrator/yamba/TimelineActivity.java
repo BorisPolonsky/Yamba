@@ -62,6 +62,7 @@ public class TimelineActivity extends Activity {
         super.onResume();
         if(yamba.getUsername()==null) {
             startActivity(new Intent(this, PrefActivity.class));
+            Toast.makeText(this, R.string.msgSetupPrefs, Toast.LENGTH_LONG).show();
             return;
         }
         Cursor cursor=db.query("timeline",null,null,null,null,null,"created_at DESC");
