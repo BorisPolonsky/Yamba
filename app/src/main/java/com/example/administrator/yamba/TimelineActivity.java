@@ -17,6 +17,9 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Polonsky on 4/21/2017.
  */
@@ -66,7 +69,6 @@ public class TimelineActivity extends Activity {
             return;
         }
         Cursor cursor=db.query("timeline",null,null,null,null,null,"created_at DESC");
-        String user,created_at,txt;
         startManagingCursor(cursor);
         adapter=new SimpleCursorAdapter(this,R.layout.row,cursor,FROM,TO);
         adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder(){
@@ -75,8 +77,16 @@ public class TimelineActivity extends Activity {
                 if (columnIndex==cursor.getColumnIndex(StatusData.C_CREATED_AT))
                 {
                     TextView textCreatedAt=(TextView)view.findViewById(R.id.textCreatedAt);
-                    textCreatedAt.setText
-                            (DateUtils.getRelativeTimeSpanString(cursor.getLong(columnIndex)));
+                    long timeThen=cursor.getLong(columnIndex);
+                    long timeSpan=System.currentTimeMillis()-timeThen;
+                    if(timeSpan<60000)//In a minute
+                        textCreatedAt.setText("just now");
+                    else if(timeSpan<24*60*60*1000)//One day
+                        textCreatedAt.setText
+                                (DateUtils.getRelativeTimeSpanString(cursor.getLong(columnIndex)));
+                    else
+                        textCreatedAt.setText(
+                                new SimpleDateFormat("MM-dd-yy HH:mm").format(timeThen));
                     return true;
                 }
                 else
