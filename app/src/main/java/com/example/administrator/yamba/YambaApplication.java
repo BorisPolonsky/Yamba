@@ -3,7 +3,6 @@ package com.example.administrator.yamba;
 import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,6 +19,7 @@ public class YambaApplication extends Application implements
     private static final String TAG= YambaApplication.class.getSimpleName();
     private String username=null;
     private String password=null;
+    private boolean pullServiceStatus=false;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -27,6 +27,7 @@ public class YambaApplication extends Application implements
         this.pref.registerOnSharedPreferenceChangeListener(this);
         this.username=this.pref.getString("username",null);
         this.password=this.pref.getString("password",null);//Perhaps I would use these strings later...
+        this.pullServiceStatus=pref.getBoolean("pull",true);
     }
     @Override
     public void onTerminate() {
@@ -50,6 +51,13 @@ public class YambaApplication extends Application implements
             this.password=sharedPreferences.getString("password",null);
             return;
         }
+        if(key.equals("pull"))
+        {
+            if(sharedPreferences.getBoolean("pull",true))
+                startService(new Intent(this,UpdaterService.class));
+            else
+                stopService(new Intent(this,UpdaterService.class));
+        }
     }
     public String getUsername(){
         return this.username;
@@ -61,4 +69,10 @@ public class YambaApplication extends Application implements
         editor.clear();
         editor.commit();
     }
+    void setPullServiceStatus(boolean bool)
+    {
+        this.pullServiceStatus=bool;
+    }
+    boolean getPullServiceStatus()
+    {return this.pullServiceStatus;}
 }

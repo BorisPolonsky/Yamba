@@ -14,8 +14,7 @@ import android.widget.Button;
 
 public class MiscActivity extends Activity
 {
-    private Button buttonStartService;
-    private Button buttonStopService;
+    private Button buttonSettings;
     private Button buttonLogOut;
     private static final String TAG=MiscActivity.class.getSimpleName();
     @Override
@@ -23,19 +22,12 @@ public class MiscActivity extends Activity
         super.onCreate(savedInstanceState);
         Log.i(TAG,"onCreate");
         this.setContentView(R.layout.misc);
-        this.buttonStartService=(Button)findViewById(R.id.buttonStartService);
-        this.buttonStopService =(Button)findViewById(R.id.buttonStopService);
+        this.buttonSettings =(Button)findViewById(R.id.buttonSettings);
         this.buttonLogOut=(Button)findViewById(R.id.buttonLogOut);
-        this.buttonStartService.setOnClickListener(new View.OnClickListener() {
+        this.buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startService(new Intent(MiscActivity.this,UpdaterService.class));
-            }
-        });
-        this.buttonStopService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopService(new Intent(MiscActivity.this,UpdaterService.class));
+                startActivity(new Intent(MiscActivity.this,PrefActivity.class));
             }
         });
         this.buttonLogOut.setOnClickListener(new View.OnClickListener() {

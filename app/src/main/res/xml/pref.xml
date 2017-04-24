@@ -7,5 +7,7 @@
         <EditTextPreference android:title="@string/titlePassword" android:summary="@string/summaryPassword"
             android:key="password" android:password="true">
         </EditTextPreference>
+        <SwitchPreference android:text="@string/titleService" android:summary="@string/summaryService"
+            android:key="pull" android:defaultValue="true"/>
     </PreferenceCategory>
 </PreferenceScreen>
