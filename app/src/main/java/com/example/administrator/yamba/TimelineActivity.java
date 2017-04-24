@@ -45,6 +45,9 @@ public class TimelineActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             TimelineActivity.this.cursor.requery();
             TimelineActivity.this.adapter.notifyDataSetChanged();
+            Toast.makeText(TimelineActivity.this,"New message received\nNumber: "+
+                    Integer.toString(intent.getIntExtra(UpdaterService.NEW_STATUS_EXTRA_COUNT,-1)),
+                    Toast.LENGTH_SHORT).show();
             Log.i("TimelineReceiver","onReceive");
         }
     }
@@ -109,7 +112,7 @@ public class TimelineActivity extends Activity {
         });
         listTimeline.setAdapter(adapter);
         registerReceiver(this.receiver,
-                new IntentFilter("com.example.administrator.yamba.NEW_INTENT"));
+                new IntentFilter(UpdaterService.NEW_STATUS_INTENT));
     }
 
     @Override

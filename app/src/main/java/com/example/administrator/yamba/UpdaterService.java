@@ -32,7 +32,8 @@ public class UpdaterService extends Service
                 {
                     //Not implemented
                     int numOfUpdate=0;
-                    if (numOfUpdate>0)
+                    //if (numOfUpdate>0)
+                    if(true)
                     {
                         Log.i(TAG,"New message received.");
                         Intent intent=new Intent(NEW_STATUS_INTENT);
