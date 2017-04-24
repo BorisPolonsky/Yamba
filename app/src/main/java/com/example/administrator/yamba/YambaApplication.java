@@ -57,5 +57,8 @@ public class YambaApplication extends Application implements
     public void logOut(){
         this.username=null;
         this.password=null;
+        SharedPreferences.Editor editor=pref.edit();
+        editor.clear();
+        editor.commit();
     }
 }
