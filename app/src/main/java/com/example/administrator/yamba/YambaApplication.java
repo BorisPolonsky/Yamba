@@ -28,6 +28,8 @@ public class YambaApplication extends Application implements
         this.username=this.pref.getString("username",null);
         this.password=this.pref.getString("password",null);//Perhaps I would use these strings later...
         this.pullServiceStatus=pref.getBoolean("pull",true);
+        if(this.pullServiceStatus)
+            startService(new Intent(this,UpdaterService.class));
     }
     @Override
     public void onTerminate() {
