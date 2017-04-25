@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.administrator.yamba">
+
+    <permission
+        android:name="com.example.administrator.yamba.RECEIVE_TIMELINE_NOTIFICATION"
+        android:description="@string/receive_timeline_notifications_permission_description"
+        android:label="@string/receive_timeline_notifications_permission_label"
+        android:permissionGroup="android.permission-group.PERSONAL_INFO"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.example.administrator.yamba.SEND_TIMELINE_NOTIFICATION"
+        android:description="@string/send_timeline_notifications_permission_description"
+        android:label="@string/send_timeline_notifications_permission_label"
+        android:permissionGroup="android.permission-group.PERSONAL_INFO"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.example.administrator.yamba.RECEIVE_TIMELINE_NOTIFICATION" />
+    <uses-permission android:name="com.example.administrator.yamba.SEND_TIMELINE_NOTIFICATION" />
+
     <application
         android:name=".YambaApplication"
         android:allowBackup="true"
@@ -8,43 +28,54 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TimelineActivity" android:label="@string/titleTimeline">
+        <activity
+            android:name=".TimelineActivity"
+            android:label="@string/titleTimeline">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StatusActivity" android:label="@string/titleStatus"/>
-        <activity android:name=".PrefActivity" android:label="@string/titlePrefActivity"/>
-        <activity android:name=".MiscActivity" android:label="@string/titleMiscActivity"/>
-        <service android:name=".UpdaterService"></service>
+        <activity
+            android:name=".StatusActivity"
+            android:label="@string/titleStatus" />
+        <activity
+            android:name=".PrefActivity"
+            android:label="@string/titlePrefActivity" />
+        <activity
+            android:name=".MiscActivity"
+            android:label="@string/titleMiscActivity" />
+
+        <service android:name=".UpdaterService" />
+
         <receiver android:name=".BootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver android:name=".NetworkReceiver">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".YambaWidget">
+            <intent-filter>
+                <action android:name="com.example.administrator.yamba.NEW_STATUS"></action>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/yamba_widget_info" />
+        </receiver>
         <provider
-            android:authorities="content://com.example.administrator.yamba.statusprovider"
-            android:name=".StatusProvider"/>
+            android:name=".StatusProvider"
+            android:authorities="com.example.administrator.yamba.statusprovider" />
     </application>
-    <permission android:name="com.example.administrator.yamba.RECEIVE_TIMELINE_NOTIFICATION"
-        android:label="@string/receive_timeline_notifications_permission_label"
-        android:description="@string/receive_timeline_notifications_permission_description"
-        android:permissionGroup="android.permission-group.PERSONAL_INFO"
-        android:protectionLevel="normal" />
-    <permission android:name="com.example.administrator.yamba.SEND_TIMELINE_NOTIFICATION"
-        android:label="@string/send_timeline_notifications_permission_label"
-        android:description="@string/send_timeline_notifications_permission_description"
-        android:permissionGroup="android.permission-group.PERSONAL_INFO"
-        android:protectionLevel="normal"/>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="com.example.administrator.yamba.RECEIVE_TIMELINE_NOTIFICATION"/>
-    <uses-permission android:name="com.example.administrator.yamba.SEND_TIMELINE_NOTIFICATION"/>
+
 </manifest>
