@@ -28,6 +28,9 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
+        <provider
+            android:authorities="content://com.example.administrator.yamba.statusprovider"
+            android:name=".StatusProvider"/>
     </application>
     <permission android:name="com.example.administrator.yamba.RECEIVE_TIMELINE_NOTIFICATION"
         android:label="@string/receive_timeline_notifications_permission_label"
