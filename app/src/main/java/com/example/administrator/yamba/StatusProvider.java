@@ -47,7 +47,6 @@ public class StatusProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        //Warning: statusData not created
         SQLiteDatabase db=statusData.getDbHelper().getWritableDatabase();
         try{
             long id=db.insertOrThrow(StatusData.TABLE,null,values);
@@ -85,9 +84,10 @@ public class StatusProvider extends ContentProvider {
             if(id<0)
                 return db.query(StatusData.TABLE,projection,selection,selectionArgs,null,null,sortOrder);
             else
-                return db.query(StatusData.TABLE,projection,StatusData.C_ID+"="+id,null,null,null,null);
+                return db.query(StatusData.TABLE, projection, StatusData.C_ID + "=" + id, null, null, null, null);
         }finally{
-            db.close();//Where there's no db.close() in the original book?
+            //db.close();//Why can't I closed it here? Since I've already obtained the cursor?
+            //Don't invoke db.close() here, otherwise the cursor will be invalid, didn't know why yet.
         }
     }
 

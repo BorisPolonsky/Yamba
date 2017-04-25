@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,7 +22,8 @@ public class YambaWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-        Cursor c=context.getContentResolver().query(StatusProvider.CONTENT_URI,null,null,null,null);//????
+        ContentResolver contentResolver=context.getContentResolver();
+        Cursor c=contentResolver.query(StatusProvider.CONTENT_URI,null,null,null,StatusData.GET_ALL_ORDER_BY);//Get the latest status
         try{
             if(c.moveToFirst()) {
                 CharSequence user = c.getString(c.getColumnIndex(StatusData.C_USER));

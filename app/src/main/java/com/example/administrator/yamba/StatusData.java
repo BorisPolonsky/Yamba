@@ -28,9 +28,9 @@ public class StatusData {
     static final String C_SOURCE="source";
     static final String C_TEXT="txt";
     static final String C_USER="user";
-    private static final String GET_ALL_ORDER_BY = C_CREATED_AT + " DESC";
-    private static final String[] MAX_CREATED_AT_COLUMNS={"MAX(", StatusData.C_CREATED_AT,")"};
-    private static final String[] DB_TEXT_COLUMNS={C_TEXT};
+    static final String GET_ALL_ORDER_BY = C_CREATED_AT + " DESC";
+    static final String[] MAX_CREATED_AT_COLUMNS={"MAX(", StatusData.C_CREATED_AT,")"};
+    static final String[] DB_TEXT_COLUMNS={C_TEXT};
     class DbHelper extends SQLiteOpenHelper
     {
 
