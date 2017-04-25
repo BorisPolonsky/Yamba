@@ -96,15 +96,7 @@ public class TimelineActivity extends Activity {
                 {
                     TextView textCreatedAt=(TextView)view.findViewById(R.id.textCreatedAt);
                     long timeThen=cursor.getLong(columnIndex);
-                    long timeSpan=System.currentTimeMillis()-timeThen;
-                    if(timeSpan<60000)//In a minute
-                        textCreatedAt.setText("just now");
-                    else if(timeSpan<24*60*60*1000)//One day
-                        textCreatedAt.setText
-                                (DateUtils.getRelativeTimeSpanString(cursor.getLong(columnIndex)));
-                    else
-                        textCreatedAt.setText(
-                                new SimpleDateFormat("MM-dd-yy HH:mm").format(timeThen));
+                    textCreatedAt.setText(TimeSpanHandler.TimeSpan(timeThen));
                     return true;
                 }
                 else

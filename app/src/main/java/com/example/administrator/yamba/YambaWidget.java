@@ -27,7 +27,7 @@ public class YambaWidget extends AppWidgetProvider {
         try{
             if(c.moveToFirst()) {
                 CharSequence user = c.getString(c.getColumnIndex(StatusData.C_USER));
-                CharSequence createdAt= DateUtils.getRelativeTimeSpanString(
+                CharSequence createdAt= TimeSpanHandler.TimeSpan(
                         c.getLong(c.getColumnIndex(StatusData.C_CREATED_AT)));
                 CharSequence text=c.getString(c.getColumnIndex(StatusData.C_TEXT));
                 for(int appWidgetId:appWidgetIds) {//Loop over widgets
