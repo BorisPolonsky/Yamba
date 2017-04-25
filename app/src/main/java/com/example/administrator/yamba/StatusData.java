@@ -125,4 +125,8 @@ public class StatusData {
             db.close();
         }
     }
+
+    public DbHelper getDbHelper() {
+        return dbHelper;
+    }
 }
