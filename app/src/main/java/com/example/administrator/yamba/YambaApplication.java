@@ -29,7 +29,11 @@ public class YambaApplication extends Application implements
         this.password=this.pref.getString("password",null);//Perhaps I would use these strings later...
         this.pullServiceStatus=pref.getBoolean("pull",true);
         if(this.pullServiceStatus)
+        {
+            //As a workaround, stop service first in case that the service is already running. 
+            stopService(new Intent(this,UpdaterService.class));
             startService(new Intent(this,UpdaterService.class));
+        }
     }
     @Override
     public void onTerminate() {
