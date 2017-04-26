@@ -57,21 +57,25 @@ public class CompassActivity extends Activity {
     protected void onResume() {
         super.onResume();
         this.sensorManager.registerListener(this.compassListener,this.sensor,SensorManager.SENSOR_DELAY_NORMAL);
+        Log.i(TAG,"onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         this.sensorManager.unregisterListener(this.compassListener);
+        Log.i(TAG,"onPause");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i(TAG,"onDestroy");
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        Log.i(TAG,"onConfigurationChanged");
     }
 }
