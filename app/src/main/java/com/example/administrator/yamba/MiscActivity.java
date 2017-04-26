@@ -16,6 +16,7 @@ public class MiscActivity extends Activity
 {
     private Button buttonSettings;
     private Button buttonLogOut;
+    private Button buttonCompass;
     private static final String TAG=MiscActivity.class.getSimpleName();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MiscActivity extends Activity
         this.setContentView(R.layout.misc);
         this.buttonSettings =(Button)findViewById(R.id.buttonSettings);
         this.buttonLogOut=(Button)findViewById(R.id.buttonLogOut);
+        this.buttonCompass=(Button)findViewById(R.id.buttonCompass);
         this.buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,6 +37,12 @@ public class MiscActivity extends Activity
             public void onClick(View v) {
                 YambaApplication yamba=(YambaApplication) getApplication();
                 yamba.logOut();
+            }
+        });
+        this.buttonCompass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MiscActivity.this, CompassActivity.class));
             }
         });
     }

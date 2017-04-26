@@ -46,6 +46,7 @@
         <activity
             android:name=".MiscActivity"
             android:label="@string/titleMiscActivity" />
+        <activity android:name=".CompassActivity"></activity>
 
         <service android:name=".UpdaterService" />
 
