@@ -3,6 +3,7 @@
     android:initialLayout="@layout/yamba_widget"
     android:minHeight="72dp"
     android:minWidth="294dp"
+    android:updatePeriodMillis="3600000"
     android:widgetCategory="home_screen">
 
 </appwidget-provider>
