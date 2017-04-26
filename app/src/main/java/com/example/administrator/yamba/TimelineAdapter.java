@@ -10,7 +10,7 @@ import android.widget.TextView;
 /**
  * Created by Polonsky on 4/23/2017.
  */
-
+@Deprecated
 public class TimelineAdapter extends SimpleCursorAdapter{
     static final String TAG=TimelineActivity.class.getSimpleName();
     static final String[] FROM={StatusData.C_CREATED_AT,StatusData.C_USER,StatusData.C_TEXT};
