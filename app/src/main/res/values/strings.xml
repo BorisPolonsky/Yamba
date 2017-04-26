@@ -26,4 +26,6 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="buttonCompass">Compass</string>
+    <string name="titleLocationActivity">Where am I</string>
+    <string name="labelLocationActivity">Location Activity</string>
 </resources>

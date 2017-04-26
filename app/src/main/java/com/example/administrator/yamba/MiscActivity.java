@@ -17,6 +17,7 @@ public class MiscActivity extends Activity
     private Button buttonSettings;
     private Button buttonLogOut;
     private Button buttonCompass;
+    private Button buttonLocation;
     private static final String TAG=MiscActivity.class.getSimpleName();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class MiscActivity extends Activity
         this.buttonSettings =(Button)findViewById(R.id.buttonSettings);
         this.buttonLogOut=(Button)findViewById(R.id.buttonLogOut);
         this.buttonCompass=(Button)findViewById(R.id.buttonCompass);
+        this.buttonLocation=(Button)findViewById(R.id.buttonLocation);
         this.buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +45,12 @@ public class MiscActivity extends Activity
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MiscActivity.this, CompassActivity.class));
+            }
+        });
+        this.buttonLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MiscActivity.this,LocationActivity.class));
             }
         });
     }

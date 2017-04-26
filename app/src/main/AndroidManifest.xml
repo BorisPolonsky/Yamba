@@ -20,7 +20,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.example.administrator.yamba.RECEIVE_TIMELINE_NOTIFICATION" />
     <uses-permission android:name="com.example.administrator.yamba.SEND_TIMELINE_NOTIFICATION" />
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
         android:name=".YambaApplication"
         android:allowBackup="true"
@@ -47,7 +48,8 @@
             android:name=".MiscActivity"
             android:label="@string/titleMiscActivity" />
         <activity android:name=".CompassActivity"></activity>
-
+        <activity android:name=".LocationActivity"
+            android:label="@string/labelLocationActivity"/>
         <service android:name=".UpdaterService" />
 
         <receiver android:name=".BootReceiver">
