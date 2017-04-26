@@ -7,7 +7,15 @@
         <EditTextPreference android:title="@string/titlePassword" android:summary="@string/summaryPassword"
             android:key="password" android:password="true">
         </EditTextPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Service settings">
+        <ListPreference android:title="@string/titleProvider"
+            android:key="locationProvider"
+            android:entries="@array/providers"
+            android:entryValues="@array/providerValues">
+        </ListPreference>
         <SwitchPreference android:text="@string/titleService" android:summary="@string/summaryService"
             android:key="pull" android:defaultValue="true"/>
     </PreferenceCategory>
+
 </PreferenceScreen>

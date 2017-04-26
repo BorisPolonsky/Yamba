@@ -39,6 +39,11 @@ public class LocationActivity extends Activity {
         this.locationListener=new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+                if(location==null)
+                {
+                    Log.i(TAG,"Looks like the last known location cannot be acquired. ");
+                    return;
+                }
                 double longitude,latitude;
                 longitude=location.getLongitude();
                 latitude=location.getLatitude();
@@ -60,7 +65,7 @@ public class LocationActivity extends Activity {
                     }
                 }catch(IOException e)
                 {
-                    Log.i(TAG,"Couldn't cat Geocoder data.");
+                    Log.i(TAG,"Couldn't get Geocoder data.");
                     Toast.makeText(LocationActivity.this,"Couldn't cat Geocoder data.",Toast.LENGTH_SHORT);
                 }
             }

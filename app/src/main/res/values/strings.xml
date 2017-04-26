@@ -28,4 +28,17 @@
     <string name="buttonCompass">Compass</string>
     <string name="titleLocationActivity">Where am I</string>
     <string name="labelLocationActivity">Location Activity</string>
+    <string name="titleProvider">Provider of location</string>
+    <string-array name="providers">
+        <item>None</item>
+        <item>GPS</item>
+        <item>Mobile Network</item>
+        <item>Combined</item>
+    </string-array>
+    <string-array name="providerValues">
+        <item>NONE</item>
+        <item>gps</item>
+        <item>network</item>
+        <item>fused</item>
+    </string-array>
 </resources>

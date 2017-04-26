@@ -20,6 +20,10 @@ public class YambaApplication extends Application implements
     private String username=null;
     private String password=null;
     private boolean pullServiceStatus=false;
+    public static final String LOCATION_PROVIDER_NONE="NONE";
+    public static final String LOCATION_PROVIDER_GPS="gps";
+    public static final String LOCATION_PROVIDER_NETWORK="network";
+    public static final String LOCATION_PROVIDER_FUSED="fused";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -64,6 +68,10 @@ public class YambaApplication extends Application implements
             else
                 stopService(new Intent(this,UpdaterService.class));
         }
+        if(key.equals("locationProvider"))
+        {
+            //No need to act yet.
+        }
     }
     public String getUsername(){
         return this.username;
@@ -81,4 +89,8 @@ public class YambaApplication extends Application implements
     }
     boolean getPullServiceStatus()
     {return this.pullServiceStatus;}
+    public String getProvider()
+    {
+        return this.pref.getString("locationProvider",LOCATION_PROVIDER_NONE);
+    }
 }

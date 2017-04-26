@@ -7,6 +7,10 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
@@ -21,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StatusActivity extends Activity
 {
@@ -48,9 +53,11 @@ public class StatusActivity extends Activity
     private Button clearButton;
     private TextView characterCount;
     private MicroBlogMonitor microBlogMonitor=new MicroBlogMonitor();
-    SharedPreferences pref;
     private StatusData statusData;
-
+    private YambaApplication yamba;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    private Location location;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +114,7 @@ public class StatusActivity extends Activity
             }
         };*/
         statusData=new StatusData(this);
+        this.yamba=(YambaApplication) getApplication();
         Log.i(TAG,"onCreate");
     }
     class MicroBlogPusher extends AsyncTask<String,String,String>
@@ -147,6 +155,55 @@ public class StatusActivity extends Activity
         protected void onPostExecute(String result) {
             Log.i(TAG,"onPostExecute");
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String provider=yamba.getProvider();
+        if (!provider.equals(YambaApplication.LOCATION_PROVIDER_NONE))
+        {
+            this.locationManager=(LocationManager) getSystemService(LOCATION_SERVICE);
+            if(this.locationManager!=null) {
+                this.locationListener=new LocationListener() {
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        StatusActivity.this.location=location;
+                        Toast.makeText(StatusActivity.this,String.format("Latitude: %f\nLongtitude: %f",location.getLatitude(),location.getLongitude()),Toast.LENGTH_SHORT).show();
+                        Log.i(TAG,"Location updated");
+                    }
+
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                    }
+
+                    @Override
+                    public void onProviderEnabled(String provider) {
+
+                    }
+
+                    @Override
+                    public void onProviderDisabled(String provider) {
+
+                    }
+                };
+                try {
+                    this.locationManager.requestLocationUpdates(provider, 30000, 10, this.locationListener);
+                    this.locationListener.onLocationChanged(locationManager.getLastKnownLocation(provider));
+                } catch (SecurityException e) {
+                    Log.i(TAG,"Permission denied");
+                    Toast.makeText(StatusActivity.this,"Unable to access location.\n Permission denied.",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(this.locationManager!=null)
+            locationManager.removeUpdates(this.locationListener);
     }
 
     @Override
