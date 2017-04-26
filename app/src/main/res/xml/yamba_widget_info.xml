@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialLayout="@layout/yamba_widget"
-    android:minHeight="294dp"
-    android:minWidth="72dp"
-    android:updatePeriodMillis="300000"
-    android:widgetCategory="home_screen"></appwidget-provider>
+    android:minHeight="72dp"
+    android:minWidth="294dp"
+    android:widgetCategory="home_screen">
+
+</appwidget-provider>
