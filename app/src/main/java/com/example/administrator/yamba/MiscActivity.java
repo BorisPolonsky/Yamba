@@ -28,30 +28,15 @@ public class MiscActivity extends Activity
         this.buttonLogOut=(Button)findViewById(R.id.buttonLogOut);
         this.buttonCompass=(Button)findViewById(R.id.buttonCompass);
         this.buttonLocation=(Button)findViewById(R.id.buttonLocation);
-        this.buttonSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MiscActivity.this,PrefActivity.class));
-            }
-        });
-        this.buttonLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        this.buttonSettings.setOnClickListener((View v)->startActivity(new Intent(MiscActivity.this,PrefActivity.class)));
+        this.buttonLogOut.setOnClickListener((View v)->{
                 YambaApplication yamba=(YambaApplication) getApplication();
                 yamba.logOut();
             }
-        });
-        this.buttonCompass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MiscActivity.this, CompassActivity.class));
-            }
-        });
-        this.buttonLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MiscActivity.this,LocationActivity.class));
-            }
-        });
+        );
+        this.buttonCompass.setOnClickListener((View v) ->
+                startActivity(new Intent(MiscActivity.this, CompassActivity.class)));
+        this.buttonLocation.setOnClickListener((View v) ->
+                startActivity(new Intent(MiscActivity.this,LocationActivity.class)));
     }
 }

@@ -60,19 +60,13 @@ public class TimelineActivity extends Activity {
         this.statusData=new StatusData(this);
         this.db=statusData.getDatabase();
         menuButton=(Button)findViewById(R.id.buttonMenu);
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TimelineActivity.this,MiscActivity.class));
-            }
-        });
+        menuButton.setOnClickListener((View v) ->
+                startActivity(new Intent(TimelineActivity.this,MiscActivity.class))
+        );
         postButton=(Button)findViewById(R.id.buttonPost);
-        postButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TimelineActivity.this,StatusActivity.class));
-            }
-        });
+        postButton.setOnClickListener((View v) ->
+                startActivity(new Intent(TimelineActivity.this,StatusActivity.class))
+        );
         yamba=(YambaApplication)getApplication();
         receiver=new TimelineReceiver();
         Log.i(TAG,"onCreate");
@@ -89,9 +83,7 @@ public class TimelineActivity extends Activity {
         this.cursor=db.query("timeline",null,null,null,null,null,"created_at DESC");
         startManagingCursor(cursor);
         this.adapter=new SimpleCursorAdapter(this,R.layout.row,cursor,FROM,TO);
-        this.adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder(){
-            @Override
-            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+        this.adapter.setViewBinder((View view, Cursor cursor, int columnIndex) -> {
                 if (columnIndex==cursor.getColumnIndex(StatusData.C_CREATED_AT))
                 {
                     TextView textCreatedAt=(TextView)view.findViewById(R.id.textCreatedAt);
@@ -102,7 +94,7 @@ public class TimelineActivity extends Activity {
                 else
                     return false;
             }
-        });
+        );
         listTimeline.setAdapter(adapter);
         registerReceiver(this.receiver,
                 new IntentFilter(UpdaterService.NEW_STATUS_INTENT),SEND_TIMELINE_NOTIFICATIONS,null);

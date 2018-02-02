@@ -68,10 +68,7 @@ public class StatusActivity extends Activity
         clearButton=(Button)findViewById(R.id.buttonClear);
         characterCount=(TextView)findViewById(R.id.textViewTextCount);
         characterCount.setTextColor(Color.GREEN);
-        shareButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        shareButton.setOnClickListener((View v) ->
             {
                 MicroBlogPusher pusher=new MicroBlogPusher();
                 String str=microBlog.getText().toString();
@@ -82,16 +79,13 @@ public class StatusActivity extends Activity
                     pusher.execute(username,text);
                 }
             }
-        });
-        clearButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        );
+        clearButton.setOnClickListener((View v) ->
             {
                 char[] newText="".toCharArray();
                 microBlog.setText(newText,0,newText.length);
             }
-        });
+        );
         /*
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         pref.registerOnSharedPreferenceChangeListener
